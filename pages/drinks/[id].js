@@ -4,6 +4,34 @@ import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 
+import "chart.js/auto";
+import { Pie } from "react-chartjs-2";
+import { colorScale } from "../../constants/colors";
+import IngredientLabelRow from "../../components/IngredientLabelRow";
+import {
+  getNumericalOunceAmountFromMeasure,
+  getPieChartData,
+  isPieChartDataEmpty,
+} from "../../utils/units";
+
+const pieChartOptions = {
+  plugins: {
+    legend: {
+      display: false,
+      position: "left",
+      labels: {
+        color: "rgb(255, 99, 132)",
+        boxWidth: 16,
+        boxHeight: 16,
+        marginRight: 40,
+        font: {
+          size: 16,
+        },
+      },
+    },
+  },
+};
+
 export default function Drink({ drink = {} }) {
   console.log({ drink });
 
@@ -69,6 +97,38 @@ export default function Drink({ drink = {} }) {
       measure: drink?.strMeasure15?.trim(),
     },
   ];
+
+  const renderIngredientLabels = (ingredients) => {
+    return ingredients?.map(({ ingredient, measure }, index) => {
+      console.log({ colorScale });
+      console.log({ index });
+      console.log("AT", colorScale[index]);
+      return (
+        <>
+          {ingredient && measure && (
+            <IngredientLabelRow
+              label={`${ingredient} (${measure})`}
+              color={colorScale[index]}
+              measure={getNumericalOunceAmountFromMeasure(measure)}
+            />
+          )}
+        </>
+      );
+    });
+  };
+
+  console.log("PIECHART", getPieChartData(ingredientsList));
+  const pieChartData = getPieChartData(ingredientsList);
+  const data = {
+    labels: [],
+    datasets: [
+      {
+        data: getPieChartData(ingredientsList),
+        backgroundColor: colorScale,
+        hoverBackgroundColor: colorScale,
+      },
+    ],
+  };
   return (
     <>
       <Head>
@@ -105,20 +165,40 @@ export default function Drink({ drink = {} }) {
             {drink?.strDrink}
           </div>
         </div>
-        <div style={{ width: "50%" }}>
-          <ul>
-            {ingredientsList.map(({ ingredient, measure }) => {
-              return (
-                <>
-                  {ingredient && measure && (
-                    <li key={ingredient}>
-                      {ingredient} ({measure})
-                    </li>
-                  )}
-                </>
-              );
-            })}
-          </ul>
+
+        <div
+          style={{
+            width: "40%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ width: "50%" }}>
+            {renderIngredientLabels(ingredientsList)}
+          </div>
+          <div style={{ width: 200 }}>
+            {isPieChartDataEmpty(pieChartData) ? (
+              <div
+                style={{
+                  display: "flex",
+                  width: 200,
+                  height: 200,
+                  backgroundColor: "lightGrey",
+                  borderRadius: "50%",
+                  textAlign: "center",
+                  fontSize: 16,
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Cannot display graph for this drink
+              </div>
+            ) : (
+              <Pie data={data} options={pieChartOptions} />
+            )}
+          </div>
         </div>
         <div style={{ width: 500, textAlign: "center" }}>
           <p>{drink?.strInstructions}</p>
