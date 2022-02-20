@@ -13,7 +13,8 @@ export const getNumericalOunceAmountFromMeasure = (measure) => {
   // if not, should determine if it is a convertable unit
   if (measureArray[1] && isNaN(parseFloat(measureArray[1]))) {
     // is not numerical so should be checked as convertible to ounces
-    const conversionCoefficient = unitToOunceConverter[measureArray[1]];
+    const conversionCoefficient =
+      unitToOunceConverter[measureArray[1]?.toLowerCase()];
     if (conversionCoefficient) {
       // is a convertable unit so should convert to ounces
       return amount * conversionCoefficient;
@@ -22,7 +23,8 @@ export const getNumericalOunceAmountFromMeasure = (measure) => {
     return null;
   } else {
     amount += eval(measureArray[1]);
-    const conversionCoefficient = unitToOunceConverter[measureArray[2]];
+    const conversionCoefficient =
+      unitToOunceConverter[measureArray[2]?.toLowerCase()];
     if (conversionCoefficient) {
       // is a convertable unit so should convert to ounces
       return amount * conversionCoefficient;

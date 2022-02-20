@@ -1,6 +1,6 @@
 import React from "react";
 
-const IngredientLabelRow = ({ color, label, measure }) => {
+const IngredientLabelRow = ({ color, label }) => {
   console.log({ color });
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -16,7 +16,6 @@ const IngredientLabelRow = ({ color, label, measure }) => {
         }}
       />
       {label}
-      {measure}
     </div>
   );
 };
