@@ -109,7 +109,6 @@ export default function Drink({ drink = {} }) {
             <IngredientLabelRow
               label={`${ingredient} (${measure})`}
               color={colorScale[index]}
-              measure={getNumericalOunceAmountFromMeasure(measure)}
             />
           )}
         </>
