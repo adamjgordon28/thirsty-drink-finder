@@ -1,0 +1,15 @@
+.result {
+  height: 40px;
+  padding: 2px;
+  background-color: #173f5f;
+  color: #ffffff;
+  font-size: 24px;
+  box-shadow: 5px 5px 5px #173f5f;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 12px;
+}

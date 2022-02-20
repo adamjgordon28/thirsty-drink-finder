@@ -37,7 +37,6 @@ export default function Home() {
           onChange={(e) => searchHandler(e.target.value)}
         />
         {searchResults?.map((drink) => {
-          // return <li key={result?.strDrink}>{result?.strDrink}</li>;
           return <DrinkSearchResult drink={drink} key={drink?.strDrink} />;
         })}
       </div>

@@ -52,3 +52,70 @@ export const isPieChartDataEmpty = (data) => {
   });
   return isEmpty;
 };
+
+export const getIngredientsList = (drink) => {
+  const ingredientsList = [
+    {
+      ingredient: drink?.strIngredient1?.trim(),
+      measure: drink?.strMeasure1?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient2?.trim(),
+      measure: drink?.strMeasure2?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient3?.trim(),
+      measure: drink?.strMeasure3?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient4?.trim(),
+      measure: drink?.strMeasure4?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient5?.trim(),
+      measure: drink?.strMeasure5?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient6?.trim(),
+      measure: drink?.strMeasure6?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient7?.trim(),
+      measure: drink?.strMeasure7?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient8?.trim(),
+      measure: drink?.strMeasure8?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient9?.trim(),
+      measure: drink?.strMeasure9?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient10?.trim(),
+      measure: drink?.strMeasure10?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient11?.trim(),
+      measure: drink?.strMeasure11?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient12?.trim(),
+      measure: drink?.strMeasure12?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient13?.trim(),
+      measure: drink?.strMeasure13?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient14?.trim(),
+      measure: drink?.strMeasure14?.trim(),
+    },
+    {
+      ingredient: drink?.strIngredient15?.trim(),
+      measure: drink?.strMeasure15?.trim(),
+    },
+  ];
+
+  return ingredientsList;
+};

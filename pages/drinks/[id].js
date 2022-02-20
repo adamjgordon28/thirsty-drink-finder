@@ -4,105 +4,31 @@ import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 
+import styles from "../../styles/DrinkPage.module.css";
+
 import "chart.js/auto";
+
 import { Pie } from "react-chartjs-2";
 import { colorScale } from "../../constants/colors";
 import IngredientLabelRow from "../../components/IngredientLabelRow";
 import {
-  getNumericalOunceAmountFromMeasure,
+  getIngredientsList,
   getPieChartData,
   isPieChartDataEmpty,
 } from "../../utils/units";
+import { red } from "picocolors";
 
 const pieChartOptions = {
   plugins: {
     legend: {
       display: false,
-      position: "left",
-      labels: {
-        color: "rgb(255, 99, 132)",
-        boxWidth: 16,
-        boxHeight: 16,
-        marginRight: 40,
-        font: {
-          size: 16,
-        },
-      },
     },
   },
 };
 
 export default function Drink({ drink = {} }) {
-  console.log({ drink });
-
-  const ingredientsList = [
-    {
-      ingredient: drink?.strIngredient1?.trim(),
-      measure: drink?.strMeasure1?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient2?.trim(),
-      measure: drink?.strMeasure2?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient3?.trim(),
-      measure: drink?.strMeasure3?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient4?.trim(),
-      measure: drink?.strMeasure4?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient5?.trim(),
-      measure: drink?.strMeasure5?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient6?.trim(),
-      measure: drink?.strMeasure6?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient7?.trim(),
-      measure: drink?.strMeasure7?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient8?.trim(),
-      measure: drink?.strMeasure8?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient9?.trim(),
-      measure: drink?.strMeasure9?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient10?.trim(),
-      measure: drink?.strMeasure10?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient11?.trim(),
-      measure: drink?.strMeasure11?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient12?.trim(),
-      measure: drink?.strMeasure12?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient13?.trim(),
-      measure: drink?.strMeasure13?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient14?.trim(),
-      measure: drink?.strMeasure14?.trim(),
-    },
-    {
-      ingredient: drink?.strIngredient15?.trim(),
-      measure: drink?.strMeasure15?.trim(),
-    },
-  ];
-
   const renderIngredientLabels = (ingredients) => {
     return ingredients?.map(({ ingredient, measure }, index) => {
-      console.log({ colorScale });
-      console.log({ index });
-      console.log("AT", colorScale[index]);
       return (
         <>
           {ingredient && measure && (
@@ -116,7 +42,8 @@ export default function Drink({ drink = {} }) {
     });
   };
 
-  console.log("PIECHART", getPieChartData(ingredientsList));
+  const ingredientsList = getIngredientsList(drink);
+
   const pieChartData = getPieChartData(ingredientsList);
   const data = {
     labels: [],
@@ -128,70 +55,36 @@ export default function Drink({ drink = {} }) {
       },
     ],
   };
+
   return (
     <>
       <Head>
         <title>{drink?.strDrink}</title>
       </Head>
       <Link href="/" passHref>
-        <div style={{ cursor: "pointer" }}>
-          <h3>{"<-- Back"}</h3>
+        <div className={styles.backButton}>
+          <h3>{"< Back"}</h3>
         </div>
       </Link>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+      <div className={styles.drinkContentContainer}>
+        <div className={styles.thumbnailAndNameContainer}>
           <Image
-            className="thumbnail"
+            className={styles.thumbnail}
             src={`${drink?.strDrinkThumb}/preview`}
             width={250}
             height={250}
             alt=""
           />
-          <div style={{ fontSize: 20, marginTop: 20, marginBottom: 20 }}>
-            {drink?.strDrink}
-          </div>
+          <div className={styles.nameContainer}>{drink?.strDrink}</div>
         </div>
 
-        <div
-          style={{
-            width: "40%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ width: "50%" }}>
+        <div className={styles.ingredientsAndChartContainer}>
+          <div className={styles.ingredientsContainer}>
             {renderIngredientLabels(ingredientsList)}
           </div>
-          <div style={{ width: 200 }}>
+          <div className={styles.chartContainer}>
             {isPieChartDataEmpty(pieChartData) ? (
-              <div
-                style={{
-                  display: "flex",
-                  width: 200,
-                  height: 200,
-                  backgroundColor: "lightGrey",
-                  borderRadius: "50%",
-                  textAlign: "center",
-                  fontSize: 16,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <div className={styles.cannotDisplayChart}>
                 Cannot display graph for this drink
               </div>
             ) : (
@@ -199,7 +92,7 @@ export default function Drink({ drink = {} }) {
             )}
           </div>
         </div>
-        <div style={{ width: 500, textAlign: "center" }}>
+        <div className={styles.instructionsContainer}>
           <p>{drink?.strInstructions}</p>
         </div>
       </div>

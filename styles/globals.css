@@ -14,7 +14,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-.thumbnail {
-  border-radius: 50%;
-}

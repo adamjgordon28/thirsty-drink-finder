@@ -1,18 +1,13 @@
 import React from "react";
+import styles from "../styles/IngredientLabelRow.module.css";
 
 const IngredientLabelRow = ({ color, label }) => {
-  console.log({ color });
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div className={styles.container}>
       <div
+        className={styles.label}
         style={{
-          width: 16,
-          height: 16,
-          minWidth: 16,
-          minHeight: 16,
-          border: "2px solid black",
           backgroundColor: color,
-          marginRight: 4,
         }}
       />
       {label}
